@@ -1,0 +1,37 @@
+﻿@model List<MVCrud.Models.ViewModels.ListTablaViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="row" style="text-align:right; padding:5px;">
+    <a href="~/Tabla/Nuevo" class="btn btn-info">+</a>
+</div>
+
+<div class="row">
+    <table class="table">
+        <thead>
+
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nombre</td>
+                <td>@item.Apellido</td>
+                <td>@item.FechaNacimiento</td>
+            </tr>
+            }    
+        </tbody>
+    </table>
+</div>
+
