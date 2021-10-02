@@ -58,7 +58,6 @@ namespace MVCrud.Controllers
                     }
                     return Redirect("~/Tabla/Index");
                 }
-                //return Redirect("~/Tabla/");
                 return View(model);
             }
             catch (Exception ex)
@@ -69,6 +68,66 @@ namespace MVCrud.Controllers
             }
 
 
+        }
+
+
+        public ActionResult Editar(int Id)
+        {
+            TablaViewModel modelo = new TablaViewModel();
+            using (CieloEntities db = new CieloEntities())
+            {
+                var item = db.Persona.Find(Id);
+                modelo.Nombre = item.Nombre;
+                modelo.Apellido = item.Apellido;
+                modelo.FechaNacimiento = (DateTime) item.FechaNacimiento;
+                modelo.Id = item.Id;
+                
+            }
+            return View(modelo);
+        }
+
+        [HttpPost]
+        public ActionResult Editar(TablaViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    using (CieloEntities db = new CieloEntities())
+                    {
+                        var oTabla = db.Persona.Find(model.Id);
+
+                        oTabla.Nombre = model.Nombre;
+                        oTabla.Apellido = model.Apellido;
+                        oTabla.FechaNacimiento = DateTime.Now;
+
+                        db.Entry(oTabla).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+
+                    }
+                    return Redirect("~/Tabla/Index");
+                }
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Eliminar(int Id)
+        {
+            using (CieloEntities db = new CieloEntities())
+            {
+                var item = db.Persona.Find(Id);
+                db.Persona.Remove(item);
+                db.SaveChanges();
+
+            }
+            return Redirect("~/Tabla/Index");
         }
     }
 }

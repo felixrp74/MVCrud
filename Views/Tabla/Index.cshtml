@@ -24,12 +24,17 @@
             @foreach(var item in Model)
             {
 
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.Nombre</td>
-                <td>@item.Apellido</td>
-                <td>@item.FechaNacimiento</td>
-            </tr>
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Apellido</td>
+                    <td>@item.FechaNacimiento</td>
+                    <td>
+                        <a class="btn btn-info" href="~/Tabla/Editar/@item.Id">Editar</a>
+                        <a class="btn btn-danger" href="~/Tabla/Eliminar/@item.Id">Eliminar</a>
+                    </td>
+                </tr>
+
             }    
         </tbody>
     </table>
